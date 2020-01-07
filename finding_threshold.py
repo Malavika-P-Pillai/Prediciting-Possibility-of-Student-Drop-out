@@ -13,7 +13,7 @@ if __name__ == '__main__':
     #studentFilename ='C:/Users/MALAVIKA P PILLAI/Documents/Studies/EDM/students/'+str(sys.argv[1])
     #get student file
     #g = open(studentFilename,'r')
-    g = open("datasetHistorical.txt",'r')
+    g = open("datasetHistorical_only_retention.txt",'r')
     lines = g.readlines()
     prev = ""
     distance = {}
@@ -44,7 +44,7 @@ if __name__ == '__main__':
         #assuming the threshold to be the average of the value
         f.write("Threshold:"+str(mean(distance[curr])))
         #print(mean(distance[curr]))
-        #print (curr)
+    #print (distance)
         f.close()
     
     #pass the merged longest paths file to clustering        
