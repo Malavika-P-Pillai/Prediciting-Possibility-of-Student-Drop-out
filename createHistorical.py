@@ -125,7 +125,7 @@ for stud in studId_graduated:
                         weightedge = his_stud[his_stud['idDisc'] == x].count().idDisc
                         if x in sub:
                             g.write("e|"+str(code[x])+"|"+str(x)+str(['|'.join(e[3:5])][0])+"|"+str(weightedge)+"\n")
-                            h.write()        
+                            h.write("e|"+str(code[x])+"|"+str(x)+str(['|'.join(e[3:5])][0])+"|"+str(weightedge)+"\n")        
                       
         g.flush()
         g.close()  
