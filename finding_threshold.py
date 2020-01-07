@@ -36,6 +36,15 @@ if __name__ == '__main__':
                 prev = words[2].replace(".","").replace("\n",'')  
             lines_stud = []
         lines_stud.append(line)
+    currFileName = prev + "_LongestPathsGraph.txt"
+    f = open(currFileName,'r')
+    lines_curr = f.readlines()
+    value = c.find_distance(lines_curr,lines_stud)
+    f.close()
+    if prev not in distance:
+        distance[prev]=[]
+    distance[prev].append(value)  
+    prev = words[2].replace(".","").replace("\n",'')     
     g.close()
     #entering the thresholds in the respective longest path files
    
@@ -44,7 +53,7 @@ if __name__ == '__main__':
         #assuming the threshold to be the average of the value
         f.write("Threshold:"+str(mean(distance[curr])))
         #print(mean(distance[curr]))
-    #print (distance)
+        #print (distance[6301001])
         f.close()
     
     #pass the merged longest paths file to clustering        
