@@ -51,7 +51,9 @@ if __name__ == '__main__':
     for curr in distance:
         f = open(str(curr)+"_LongestPathsGraph.txt",'a')
         #assuming the threshold to be the average of the value
-        f.write("Threshold:"+str(mean(distance[curr])))
+        f.write("Threshold_Mean:"+str(mean(distance[curr])))
+        f.write("Threshold_Median:"+str(median(distance[curr])))
+        f.write("Threshold_Mode:"+str(mode(distance[curr])))
         #print(mean(distance[curr]))
         #print (distance[6301001])
         f.close()
