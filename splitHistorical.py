@@ -43,8 +43,8 @@ if __name__ == '__main__':
 	
    
 	
-	createDatasetLongestPaths("datasetHistorical.txt")
-	f = open("datasetHistorical.txt",'r')
+	createDatasetLongestPaths("datasetHistorical_only_retention.txt")
+	f = open("datasetHistorical_only_retention.txt",'r')
 	lines = f.readlines()
 	filename = []
 	for line in lines:
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 	#print idGraph_Edge_Weight
 
 	idGraphs=idGraph_Path.keys()
-	datasetPrint=open("historicalLP.txt","w")
+	datasetPrint=open("onlyRetention_LP.txt","w")
 	for idG in idGraphs:
 		#map idGraphs to filename
 

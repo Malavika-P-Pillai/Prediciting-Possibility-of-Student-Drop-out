@@ -2,25 +2,20 @@ import Clustering
 import sys
 import os
 from statistics import *
-'''
-if distance < 0.50:
-    return True
-else:
-    return False    
-'''
+
 if __name__ == '__main__':
     c = Clustering.Clustering()
-    #studentFilename ='C:/Users/MALAVIKA P PILLAI/Documents/Studies/EDM/students/'+str(sys.argv[1])
-    #get student file
-    #g = open(studentFilename,'r')
-    g = open("datasetHistorical_only_retention.txt",'r')
+    
+    g = open("LPonlyRetention.txt",'r') 
+    
     lines = g.readlines()
     prev = ""
     distance = {}
     lines_stud = []
+    formulas = ["3.3","3.4","3.5"]
     for line in lines:
         words = line.split("|")
-        if words[0] == "g":
+        if words[0] == "g" or words[0] == "c":
                          
             if prev == "":
                 prev = words[2].replace(".","").replace("\n",'')
@@ -28,7 +23,11 @@ if __name__ == '__main__':
                 currFileName = prev + "_LongestPathsGraph.txt"
                 f = open(currFileName,'r')
                 lines_curr = f.readlines()
-                value = c.find_distance(lines_curr,lines_stud)
+                #print("curriculum:"+str(prev))
+                value = []
+                value.append(c.find_distance_3_3(lines_curr,lines_stud))
+                value.append(c.find_distance_3_4(lines_curr,lines_stud))
+                value.append(c.find_distance_3_5(lines_curr,lines_stud))
                 f.close()
                 if prev not in distance:
                     distance[prev]=[]
@@ -39,23 +38,44 @@ if __name__ == '__main__':
     currFileName = prev + "_LongestPathsGraph.txt"
     f = open(currFileName,'r')
     lines_curr = f.readlines()
-    value = c.find_distance(lines_curr,lines_stud)
+    value = []
+    value.append(c.find_distance_3_3(lines_curr,lines_stud))
+    value.append(c.find_distance_3_4(lines_curr,lines_stud))
+    value.append(c.find_distance_3_5(lines_curr,lines_stud))
     f.close()
     if prev not in distance:
         distance[prev]=[]
-    distance[prev].append(value)  
+    distance[prev].append(value)
+
     prev = words[2].replace(".","").replace("\n",'')     
     g.close()
-    #entering the thresholds in the respective longest path files
+    
    
     for curr in distance:
+        #print(curr)
+        #print("\n")
+        #print(distance[curr])
         f = open(str(curr)+"_LongestPathsGraph.txt",'a')
-        #assuming the threshold to be the average of the value
-        f.write("Threshold_Mean:"+str(mean(distance[curr])))
-        f.write("\nThreshold_Median:"+str(median(distance[curr])))
-        f.write("\nThreshold_Mode:"+str(mode(distance[curr])))
-        #print(mean(distance[curr]))
-        #print (distance[6301001])
+        #print([item for elem in list(map(list,list(zip(distance[curr])))) for item in elem])
+        #print(distance[curr])
+        #print("Zipped\n")
+        #print(list(zip(*distance[curr])))
+        mean_list = list(map(mean,list(map(list,list(zip(*distance[curr]))))))
+        median_list = list(map(median,list(map(list,list(zip(*distance[curr]))))))
+        mode_list = list(map(mode,list(map(list,list(zip(*distance[curr]))))))
+        #print(mean_list)
+        #print(median_list)
+        #print(mode_list)
+        count = 0
+        
+        for i in formulas:
+            f.write("Threshold_"+str(i))
+            f.write("\nMean:"+str(mean_list[count]))
+            f.write("\nMedian:"+str(median_list[count]))
+            f.write("\nMode:"+str(mode_list[count]))
+            f.write("\n")
+            count = count +1
+        
         f.close()
     
-    #pass the merged longest paths file to clustering        
+          
